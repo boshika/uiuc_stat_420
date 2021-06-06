@@ -1,0 +1,88 @@
+---
+title: "Week 2 - Quiz"
+author: "STAT 420, Summer 2021, Boshika Tara"
+date: '06-06-2021'
+output:
+  html_document: 
+    theme: readable
+    toc: yes
+  pdf_document: default
+urlcolor: cyan
+---
+
+***
+
+Consider the simple linear regression model 
+Y = 10 + 5x + $\epsilon$
+
+  where $\epsilon$ $\sim$ N(0, $\sigma^{2}$ = 16) 
+
+  Calculate the probability that Y is less than 6 given that x = 0.
+```{r}
+mu = 10 + 5 * 0
+pnorm(6, mean = mu, sd = sqrt(16))
+```
+
+ Using the SLR model in Question 1, what is the probability that Y is greater than 3 given that x = -1?
+```{r}
+mu = 10 + 5 * (-1)
+pnorm(3, mean = mu, sd = sqrt(16), lower.tail = FALSE)
+```
+
+Using the SLR model in Question 1, what is the probability that Y is greater than 3 given that x = -2?
+```{r}
+mu = 10 + 5 * (-2)
+pnorm(3, mean = mu, sd = sqrt(16), lower.tail = FALSE)
+```
+
+For Questions 4-11, use the faithful dataset, which is built into R.  Suppose we would like to predict the duration of an eruption of the Old Faithful geyser in Yellowstone National Park based on the waiting time before an eruption. Fit a simple linear model in R that accomplishes this task.
+
+What is the estimate of the intercept parameter?
+What is the estimate of the slope parameter?  
+```{r}
+model = lm(eruptions ~ waiting, data = faithful)
+coef(model)
+```
+
+Use the fitted model to predict the duration of an eruption based on a waiting time of 80 minutes.  
+```{r}
+model = lm(eruptions ~ waiting, data = faithful)
+coef(model)
+predict(model, data.frame(waiting = 80))
+```
+
+Use the fitted model to predict the duration of an eruption based on a waiting time of 120 minutes.  
+```{r}
+model = lm(eruptions ~ waiting, data = faithful)
+coef(model)
+predict(model, data.frame(waiting = 120))
+```
+
+Of the predictions that you made for 80 and 120 minutes, which is more reliable?
+```{r}
+range(faithful$waiting)
+```
+
+Calculate the RSS for the fitted model. 
+```{r}
+model = lm(eruptions ~ waiting, data = faithful)
+sum(resid(model) ^ 2)
+```
+
+What proportion of the variation in eruption duration is explained by the linear relationship with waiting time?
+```{r}
+model = lm(eruptions ~ waiting, data = faithful)
+summary(model)
+```
+
+Calculate the standard deviation of the residuals of the fitted model.  
+```{r}
+model = lm(eruptions ~ waiting, data = faithful)
+sd(resid(model))
+```
+
+
+
+
+
+***
